@@ -2,18 +2,20 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X, User, ShoppingCart } from 'lucide-react';
+import { Menu, X, User, ShoppingCart, LogOut, LayoutDashboard, Heart } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 const navLinks = [
   { href: '/', label: '首頁' },
   { href: '/booking', label: '預約門診' },
   { href: '/blog', label: '健康知識' },
   { href: '/shop', label: '保健食品' },
-  { href: '/dashboard', label: '醫師後台' },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const { user, isLoggedIn, logout } = useAuth();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-border">
@@ -39,9 +41,17 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          {isLoggedIn && user?.role === 'doctor' && (
+            <Link
+              href="/dashboard"
+              className="px-4 py-2 rounded-full text-sm font-medium text-primary hover:bg-primary-light transition-all"
+            >
+              醫師後台
+            </Link>
+          )}
         </div>
 
-        {/* Desktop CTA */}
+        {/* Desktop Right */}
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/cart"
@@ -50,19 +60,74 @@ export default function Navbar() {
           >
             <ShoppingCart size={18} />
           </Link>
-          <Link
-            href="/login"
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary hover:text-text transition-colors"
-          >
-            <User size={16} />
-            登入
-          </Link>
-          <Link
-            href="/booking"
-            className="px-5 py-2.5 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-colors"
-          >
-            立即預約
-          </Link>
+
+          {isLoggedIn && user ? (
+            <div className="relative">
+              <button
+                onClick={() => setProfileOpen(!profileOpen)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface hover:bg-surface-dark transition-colors"
+              >
+                <div className="w-7 h-7 bg-primary-light rounded-full flex items-center justify-center">
+                  <span className="text-xs font-bold text-primary">{user.avatar}</span>
+                </div>
+                <span className="text-sm font-medium text-text">{user.name}</span>
+              </button>
+
+              {profileOpen && (
+                <div className="absolute right-0 top-12 w-56 bg-white rounded-2xl border border-border shadow-lg py-2 z-50">
+                  <div className="px-4 py-3 border-b border-border">
+                    <div className="text-sm font-medium text-text">{user.name}</div>
+                    <div className="text-xs text-text-secondary">{user.email}</div>
+                    <div className="text-xs text-primary mt-0.5">
+                      {user.role === 'doctor' ? '醫師帳號' : '會員帳號'} · {user.memberId}
+                    </div>
+                  </div>
+                  {user.role === 'doctor' ? (
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setProfileOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-text hover:bg-surface transition-colors"
+                    >
+                      <LayoutDashboard size={16} /> 醫師後台
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/profile"
+                      onClick={() => setProfileOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-text hover:bg-surface transition-colors"
+                    >
+                      <Heart size={16} /> 我的健康
+                    </Link>
+                  )}
+                  <button
+                    onClick={() => {
+                      logout();
+                      setProfileOpen(false);
+                    }}
+                    className="flex items-center gap-2 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors w-full"
+                  >
+                    <LogOut size={16} /> 登出
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary hover:text-text transition-colors"
+              >
+                <User size={16} />
+                登入
+              </Link>
+              <Link
+                href="/booking"
+                className="px-5 py-2.5 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-colors"
+              >
+                立即預約
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -89,21 +154,65 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            {isLoggedIn && user?.role === 'doctor' && (
+              <Link
+                href="/dashboard"
+                onClick={() => setOpen(false)}
+                className="block px-4 py-3 rounded-xl text-base font-medium text-primary hover:bg-primary-light transition-all"
+              >
+                醫師後台
+              </Link>
+            )}
             <hr className="my-3 border-border" />
-            <Link
-              href="/login"
-              onClick={() => setOpen(false)}
-              className="block px-4 py-3 rounded-xl text-base font-medium text-text-secondary hover:text-text hover:bg-surface"
-            >
-              登入 / 註冊
-            </Link>
-            <Link
-              href="/booking"
-              onClick={() => setOpen(false)}
-              className="block text-center px-4 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary-dark transition-colors"
-            >
-              立即預約
-            </Link>
+
+            {isLoggedIn && user ? (
+              <>
+                <div className="px-4 py-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary-light rounded-full flex items-center justify-center">
+                      <span className="font-bold text-primary">{user.avatar}</span>
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-text">{user.name}</div>
+                      <div className="text-xs text-text-secondary">{user.email}</div>
+                    </div>
+                  </div>
+                </div>
+                <Link
+                  href={user.role === 'doctor' ? '/dashboard' : '/profile'}
+                  onClick={() => setOpen(false)}
+                  className="block px-4 py-3 rounded-xl text-base font-medium text-text-secondary hover:text-text hover:bg-surface"
+                >
+                  {user.role === 'doctor' ? '醫師後台' : '我的健康'}
+                </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    setOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-3 rounded-xl text-base font-medium text-red-500 hover:bg-red-50"
+                >
+                  登出
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className="block px-4 py-3 rounded-xl text-base font-medium text-text-secondary hover:text-text hover:bg-surface"
+                >
+                  登入 / 註冊
+                </Link>
+                <Link
+                  href="/booking"
+                  onClick={() => setOpen(false)}
+                  className="block text-center px-4 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary-dark transition-colors"
+                >
+                  立即預約
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

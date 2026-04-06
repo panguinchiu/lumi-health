@@ -44,7 +44,7 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-surface flex items-center justify-center px-4">
+      <div className="min-h-screen bg-mist flex items-center justify-center px-4">
         <div className="text-center">
           <ShoppingCart size={48} className="text-text-secondary mx-auto mb-4" />
           <h2 className="text-xl font-bold text-text mb-2">購物車是空的</h2>
@@ -61,7 +61,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-mist">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
           href="/shop"
@@ -124,7 +124,7 @@ export default function CartPage() {
           </div>
 
           {/* Order Summary */}
-          <div className="bg-white rounded-2xl border border-border p-6 h-fit sticky top-24">
+          <div className="bg-white rounded-2xl border border-border p-6 h-fit sticky top-28">
             <h2 className="text-lg font-bold text-text mb-4">訂單摘要</h2>
             <div className="space-y-3 text-sm">
               <div className="flex justify-between">

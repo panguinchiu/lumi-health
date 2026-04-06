@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const footerLinks = {
   服務: [
@@ -24,11 +25,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-white font-bold text-sm">L</span>
-              </div>
-              <span className="text-lg font-semibold text-text">Lumi Health</span>
+            <div className="mb-4">
+              <Image src="/logo.png" alt="Lumi Health" width={280} height={76} className="h-16 w-auto" />
             </div>
             <p className="text-sm text-text-secondary leading-relaxed">
               AI 驅動的預防醫學平台，<br />

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Clock, ArrowRight, Tag } from 'lucide-react';
+import ArticleImage from '@/components/ArticleImage';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -83,7 +84,7 @@ export default function BlogPage() {
   const rest = articles.filter((a) => !a.featured);
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-mist">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
@@ -122,9 +123,7 @@ export default function BlogPage() {
                 href={`/blog/${article.slug}`}
                 className="block bg-white rounded-3xl border border-border overflow-hidden hover:shadow-lg transition-shadow group"
               >
-                <div className="h-48 bg-gradient-to-br from-primary-light to-primary/10 flex items-center justify-center">
-                  <span className="text-6xl opacity-20">📋</span>
-                </div>
+                <ArticleImage slug={article.slug} className="h-48" />
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-xs font-medium text-primary bg-primary-light px-3 py-1 rounded-full">

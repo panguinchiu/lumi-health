@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Share2, Bookmark } from 'lucide-react';
+import ArticleImage from '@/components/ArticleImage';
 import { use } from 'react';
 
 const articleData: Record<string, { title: string; category: string; readTime: string; date: string; content: string[] }> = {
@@ -77,6 +78,8 @@ export default function BlogArticlePage({ params }: { params: Promise<{ slug: st
           <h1 className="text-3xl sm:text-4xl font-bold text-text leading-tight mb-6">
             {article.title}
           </h1>
+
+          <ArticleImage slug={slug} className="w-full h-64 sm:h-80 rounded-2xl mb-8" />
 
           {/* Author */}
           <div className="flex items-center justify-between pb-8 border-b border-border mb-8">

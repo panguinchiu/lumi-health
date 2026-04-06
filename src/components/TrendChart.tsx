@@ -6,7 +6,7 @@ function getColor(value: number, refLow: number, refHigh: number): string {
   if (value < refLow || value > refHigh) return '#ef4444';
   const margin = (refHigh - refLow) * 0.15;
   if (value < refLow + margin || value > refHigh - margin) return '#f59e0b';
-  return '#0a8f6c';
+  return '#d97b3a';
 }
 
 export default function TrendChart({ metric }: { metric: MetricHistory }) {
@@ -89,7 +89,7 @@ export default function TrendChart({ metric }: { metric: MetricHistory }) {
           y={refHighY}
           width={chartW}
           height={Math.max(refLowY - refHighY, 0)}
-          fill="#0a8f6c"
+          fill="#d97b3a"
           opacity={0.06}
           rx={1}
         />
@@ -99,7 +99,7 @@ export default function TrendChart({ metric }: { metric: MetricHistory }) {
           y1={refHighY}
           x2={width - padding.right}
           y2={refHighY}
-          stroke="#0a8f6c"
+          stroke="#d97b3a"
           strokeWidth={0.3}
           strokeDasharray="1.5 1"
         />
@@ -108,7 +108,7 @@ export default function TrendChart({ metric }: { metric: MetricHistory }) {
           y1={refLowY}
           x2={width - padding.right}
           y2={refLowY}
-          stroke="#0a8f6c"
+          stroke="#d97b3a"
           strokeWidth={0.3}
           strokeDasharray="1.5 1"
         />
@@ -120,7 +120,7 @@ export default function TrendChart({ metric }: { metric: MetricHistory }) {
         <path
           d={linePath}
           fill="none"
-          stroke="#0a8f6c"
+          stroke="#d97b3a"
           strokeWidth={1.2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -141,8 +141,8 @@ export default function TrendChart({ metric }: { metric: MetricHistory }) {
 
         <defs>
           <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#0a8f6c" />
-            <stop offset="100%" stopColor="#0a8f6c" stopOpacity={0} />
+            <stop offset="0%" stopColor="#d97b3a" />
+            <stop offset="100%" stopColor="#d97b3a" stopOpacity={0} />
           </linearGradient>
         </defs>
       </svg>

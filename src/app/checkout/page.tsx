@@ -54,7 +54,7 @@ export default function CheckoutPage() {
 
   if (step === 'processing') {
     return (
-      <div className="min-h-screen bg-surface flex items-center justify-center px-4">
+      <div className="min-h-screen bg-mist flex items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -72,7 +72,7 @@ export default function CheckoutPage() {
 
   if (step === 'success') {
     return (
-      <div className="min-h-screen bg-surface flex items-center justify-center px-4">
+      <div className="min-h-screen bg-mist flex items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -133,7 +133,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-mist">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
           href="/cart"
@@ -405,7 +405,7 @@ export default function CheckoutPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white rounded-2xl border border-border p-6 sticky top-24"
+                className="bg-white rounded-2xl border border-border p-6 sticky top-28"
               >
                 <h2 className="text-lg font-bold text-text mb-4">訂單明細</h2>
                 <div className="space-y-3 mb-4">

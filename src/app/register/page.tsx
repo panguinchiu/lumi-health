@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Eye, EyeOff, Mail, Lock, User, Phone } from 'lucide-react';
 
 export default function RegisterPage() {
@@ -14,16 +15,14 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-mist flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-lg">L</span>
-          </div>
+          <Image src="/logo.png" alt="Lumi Health" width={320} height={88} className="h-20 w-auto mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-text">建立帳戶</h1>
           <p className="text-text-secondary mt-2">加入 Lumi Health，開啟健康管理旅程</p>
         </div>

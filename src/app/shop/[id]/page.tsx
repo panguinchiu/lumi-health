@@ -15,6 +15,7 @@ import {
   RotateCcw,
 } from 'lucide-react';
 import { use } from 'react';
+import ProductImage from '@/components/ProductImage';
 
 const productDetails: Record<
   string,
@@ -90,8 +91,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
           className="grid lg:grid-cols-2 gap-12"
         >
           {/* Product Image */}
-          <div className="bg-surface rounded-3xl h-80 lg:h-[480px] flex items-center justify-center">
-            <span className="text-8xl">{product.emoji}</span>
+          <div className="rounded-3xl h-80 lg:h-[480px] overflow-hidden">
+            <ProductImage productId={id} className="scale-150" />
           </div>
 
           {/* Product Info */}

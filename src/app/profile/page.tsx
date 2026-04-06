@@ -1,32 +1,32 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   User,
   Mail,
   Phone,
   Calendar,
-  FileText,
-  TrendingUp,
+  Heart,
+  ShoppingBag,
+  ClipboardCheck,
   ChevronRight,
-  Activity,
 } from 'lucide-react';
-
-const healthRecords = [
-  { date: '2026/03/15', type: '全套血液檢查', status: '已完成', result: '正常' },
-  { date: '2026/02/20', type: '維生素D檢測', status: '已完成', result: '偏低' },
-  { date: '2026/01/10', type: '腸道菌相分析', status: '已完成', result: '待改善' },
-  { date: '2025/12/05', type: '荷爾蒙檢測', status: '已完成', result: '正常' },
-];
 
 const upcomingAppointments = [
   { date: '2026/04/10', time: '10:00', type: '回診追蹤', doctor: '陳醫師' },
   { date: '2026/04/25', time: '14:00', type: '回診追蹤', doctor: '陳醫師' },
 ];
 
+const recommendedSupplements = [
+  { name: '維生素 D3 2000IU', desc: '根據您的檢測結果推薦', href: '/shop' },
+  { name: 'Omega-3 高濃度魚油', desc: '醫師建議補充', href: '/shop' },
+  { name: '螯合鐵複方', desc: '搭配維生素C更好吸收', href: '/shop' },
+];
+
 export default function ProfilePage() {
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-mist">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Profile Header */}
         <motion.div
@@ -57,9 +57,9 @@ export default function ProfilePage() {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Left: Health Summary */}
+          {/* Left column */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Health Metrics */}
+            {/* Health Management Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -67,35 +67,27 @@ export default function ProfilePage() {
               className="bg-white rounded-3xl border border-border p-6"
             >
               <h2 className="text-lg font-bold text-text mb-4 flex items-center gap-2">
-                <Activity size={20} className="text-primary" />
-                健康摘要
+                <Heart size={20} className="text-primary" />
+                健康管理
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {[
-                  { label: '總檢測次數', value: '12', trend: '+2' },
-                  { label: '追蹤項目', value: '8', trend: '' },
-                  { label: '異常指標', value: '2', trend: '-1' },
-                  { label: '健康評分', value: '85', trend: '+5' },
-                ].map((m) => (
-                  <div
-                    key={m.label}
-                    className="bg-surface rounded-2xl p-4 text-center"
-                  >
-                    <div className="text-2xl font-bold text-text">{m.value}</div>
-                    <div className="text-xs text-text-secondary mt-1">
-                      {m.label}
-                    </div>
-                    {m.trend && (
-                      <div className="text-xs text-primary font-medium mt-1">
-                        {m.trend}
-                      </div>
-                    )}
-                  </div>
-                ))}
+              <div className="bg-primary-light/30 rounded-2xl p-6 text-center">
+                <ClipboardCheck size={40} className="text-primary mx-auto mb-3" />
+                <p className="text-text font-medium mb-1">
+                  您的檢測報告將由醫師於回診時為您解說
+                </p>
+                <p className="text-sm text-text-secondary mb-4">
+                  如有疑問，歡迎於回診時與醫師討論
+                </p>
+                <Link
+                  href="/booking"
+                  className="inline-block px-6 py-2.5 bg-primary text-white text-sm font-medium rounded-full hover:bg-primary-dark transition-colors"
+                >
+                  預約門診
+                </Link>
               </div>
             </motion.div>
 
-            {/* Health Records */}
+            {/* Recommended Supplements */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -103,44 +95,35 @@ export default function ProfilePage() {
               className="bg-white rounded-3xl border border-border p-6"
             >
               <h2 className="text-lg font-bold text-text mb-4 flex items-center gap-2">
-                <FileText size={20} className="text-primary" />
-                檢測紀錄
+                <ShoppingBag size={20} className="text-primary" />
+                推薦保健品
               </h2>
               <div className="space-y-3">
-                {healthRecords.map((record) => (
-                  <div
-                    key={record.date + record.type}
-                    className="flex items-center justify-between p-4 bg-surface rounded-2xl hover:bg-surface-dark transition-colors cursor-pointer"
+                {recommendedSupplements.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="flex items-center justify-between p-4 bg-surface rounded-2xl hover:bg-surface-dark transition-colors"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="text-sm text-text-secondary w-24">
-                        {record.date}
+                    <div>
+                      <div className="text-sm font-medium text-text">
+                        {item.name}
                       </div>
-                      <div>
-                        <div className="text-sm font-medium text-text">
-                          {record.type}
-                        </div>
-                        <div className="text-xs text-text-secondary">
-                          {record.status}
-                        </div>
+                      <div className="text-xs text-text-secondary mt-0.5">
+                        {item.desc}
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`text-xs font-medium px-3 py-1 rounded-full ${
-                          record.result === '正常'
-                            ? 'bg-green-50 text-green-600'
-                            : record.result === '偏低'
-                            ? 'bg-amber-50 text-amber-600'
-                            : 'bg-red-50 text-red-600'
-                        }`}
-                      >
-                        {record.result}
-                      </span>
-                      <ChevronRight size={16} className="text-text-secondary" />
-                    </div>
-                  </div>
+                    <ChevronRight size={16} className="text-text-secondary" />
+                  </Link>
                 ))}
+              </div>
+              <div className="mt-4 text-center">
+                <Link
+                  href="/shop"
+                  className="text-sm text-primary font-medium hover:underline"
+                >
+                  查看更多保健品 →
+                </Link>
               </div>
             </motion.div>
           </div>
@@ -175,7 +158,7 @@ export default function ProfilePage() {
               </div>
             </motion.div>
 
-            {/* Health Trend */}
+            {/* Simplified Health Tracking */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -183,35 +166,24 @@ export default function ProfilePage() {
               className="bg-white rounded-3xl border border-border p-6"
             >
               <h2 className="text-lg font-bold text-text mb-4 flex items-center gap-2">
-                <TrendingUp size={20} className="text-primary" />
-                趨勢追蹤
+                <ClipboardCheck size={20} className="text-primary" />
+                健康追蹤
               </h2>
               <div className="space-y-4">
-                {[
-                  { label: '維生素 D', value: 28, target: 40, unit: 'ng/mL' },
-                  { label: '鐵蛋白', value: 65, target: 80, unit: 'ng/mL' },
-                  { label: 'Omega-3 指數', value: 6.2, target: 8, unit: '%' },
-                ].map((item) => (
-                  <div key={item.label}>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span className="text-text-secondary">{item.label}</span>
-                      <span className="font-medium text-text">
-                        {item.value} {item.unit}
-                      </span>
-                    </div>
-                    <div className="h-2 bg-surface rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary rounded-full transition-all"
-                        style={{
-                          width: `${Math.min((item.value / item.target) * 100, 100)}%`,
-                        }}
-                      />
-                    </div>
-                    <div className="text-xs text-text-secondary mt-1">
-                      目標: {item.target} {item.unit}
-                    </div>
+                <div className="bg-surface rounded-2xl p-4 text-center">
+                  <div className="text-3xl font-bold text-text">12</div>
+                  <div className="text-xs text-text-secondary mt-1">
+                    已完成檢測次數
                   </div>
-                ))}
+                </div>
+                <div className="bg-surface rounded-2xl p-4 text-center">
+                  <div className="text-lg font-bold text-primary">
+                    2026/04/10
+                  </div>
+                  <div className="text-xs text-text-secondary mt-1">
+                    下次回診日期
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

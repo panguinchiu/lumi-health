@@ -1,33 +1,42 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { Menu, X, User, ShoppingCart, LogOut, LayoutDashboard, Heart } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
-
-const navLinks = [
-  { href: '/', label: '首頁' },
-  { href: '/booking', label: '預約門診' },
-  { href: '/blog', label: '健康知識' },
-  { href: '/shop', label: '保健食品' },
-];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const { user, isLoggedIn, logout } = useAuth();
 
+  const navLinks =
+    isLoggedIn && user?.role === 'doctor'
+      ? [
+          { href: '/', label: '首頁' },
+          { href: '/dashboard', label: '醫師後台' },
+        ]
+      : [
+          { href: '/', label: '首頁' },
+          { href: '/booking', label: '預約門診' },
+          { href: '/blog', label: '健康知識' },
+          { href: '/shop', label: '保健食品' },
+        ];
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-border">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-xl border-b border-border/60">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-white font-bold text-sm">L</span>
-          </div>
-          <span className="text-xl font-semibold tracking-tight text-text">
-            Lumi Health
-          </span>
+        <Link href="/" className="flex items-center shrink-0">
+          <Image
+            src="/logo.png"
+            alt="Lumi Health"
+            width={320}
+            height={88}
+            className="h-[72px] w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -41,14 +50,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          {isLoggedIn && user?.role === 'doctor' && (
-            <Link
-              href="/dashboard"
-              className="px-4 py-2 rounded-full text-sm font-medium text-primary hover:bg-primary-light transition-all"
-            >
-              醫師後台
-            </Link>
-          )}
         </div>
 
         {/* Desktop Right */}
@@ -154,15 +155,6 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            {isLoggedIn && user?.role === 'doctor' && (
-              <Link
-                href="/dashboard"
-                onClick={() => setOpen(false)}
-                className="block px-4 py-3 rounded-xl text-base font-medium text-primary hover:bg-primary-light transition-all"
-              >
-                醫師後台
-              </Link>
-            )}
             <hr className="my-3 border-border" />
 
             {isLoggedIn && user ? (

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Star, Filter, Search } from 'lucide-react';
+import ProductImage from '@/components/ProductImage';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -131,7 +132,7 @@ export default function ShopPage() {
   });
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-mist">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
@@ -198,8 +199,8 @@ export default function ShopPage() {
                 className="block bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow group"
               >
                 {/* Product Image Placeholder */}
-                <div className="relative h-48 bg-gradient-to-br from-surface to-surface-dark flex items-center justify-center">
-                  <span className="text-5xl">{product.emoji}</span>
+                <div className="relative h-48 flex items-center justify-center">
+                  <ProductImage productId={product.id} />
                   {product.badge && (
                     <span className="absolute top-3 left-3 text-xs font-medium text-white bg-primary px-3 py-1 rounded-full">
                       {product.badge}

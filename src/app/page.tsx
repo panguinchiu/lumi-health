@@ -30,7 +30,7 @@ export default function HomePage() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-white via-primary-light/30 to-white">
+      <section className="relative min-h-[90vh] flex items-center bg-mist-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <motion.div
             initial="hidden"
@@ -81,13 +81,14 @@ export default function HomePage() {
           </motion.div>
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-40 w-48 h-48 bg-accent/10 rounded-full blur-3xl" />
+        {/* Decorative mist elements */}
+        <div className="absolute top-10 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/8 rounded-full blur-[80px]" />
+        <div className="absolute top-40 left-1/3 w-64 h-64 bg-primary/5 rounded-full blur-[60px]" />
       </section>
 
       {/* Stats Bar */}
-      <section className="bg-text py-8">
+      <section className="bg-gradient-to-r from-primary to-primary-dark py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -108,7 +109,7 @@ export default function HomePage() {
       </section>
 
       {/* Feature Grid — Apple-style tiles */}
-      <section className="py-24 bg-surface">
+      <section className="py-24 bg-mist-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -234,7 +235,7 @@ export default function HomePage() {
       </section>
 
       {/* Before / After Comparison */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-mist">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -374,7 +375,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-surface">
+      <section className="py-24 bg-mist-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial="hidden"
@@ -432,7 +433,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-mist">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial="hidden"
